@@ -71,7 +71,7 @@ const Dashboard = () => {
                 <div className="glass" style={{ padding: '24px' }}>
                     <h3 style={{ marginBottom: '20px' }}>Quick Actions</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                        <button className="glass" style={{ padding: '12px', textAlign: 'left', background: 'rgba(99, 102, 241, 0.1)', border: '1px solid var(--primary)' }}>
+                        <button className="glass" style={{ padding: '12px', textAlign: 'left', background: 'var(--primary-glow)', border: '1px solid var(--primary)' }}>
                             Add New Employee
                         </button>
                         <button className="glass" style={{ padding: '12px', textAlign: 'left' }}>

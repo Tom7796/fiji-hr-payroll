@@ -25,8 +25,8 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
             top: 0
         }}>
             <div className="logo" style={{ marginBottom: '40px', padding: '0 10px' }}>
-                <h2 style={{ fontSize: '24px', background: 'linear-gradient(to right, #fff, var(--secondary))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                    HR Portal
+                <h2 style={{ fontSize: '24px', background: 'linear-gradient(to right, #fff, var(--primary))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    Fiji HR Portal
                 </h2>
             </div>
 
