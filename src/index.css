@@ -1,63 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette - Updated Fiji Branding */
+  /* Color Palette - Updated Fiji Branding (Light First) */
   --primary: #6cb33f;
   --primary-hover: #5a9635;
-  --primary-glow: rgba(108, 179, 63, 0.4);
+  --primary-glow: rgba(108, 179, 63, 0.2);
   --secondary: #06b6d4;
   --accent: #f43f5e;
 
-  --bg-main: #f8fafc;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-sidebar: #1e293b;
+  --bg-main: #ffffff;
+  --bg-card: #ffffff;
+  --bg-sidebar: #f8fafc;
+  /* Light gray sidebar */
 
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  /* Darker for better contrast */
-  --text-muted: #64748b;
-  /* Darker for better contrast */
+  --text-primary: #000000;
+  /* High contrast black */
+  --text-secondary: #1e293b;
+  --text-muted: #475569;
   --text-on-dark: #ffffff;
 
-  --border-light: rgba(226, 232, 240, 1);
-  /* Solid border for better definition */
-  --border-glass: rgba(255, 255, 255, 0.3);
+  --border-light: #e2e8f0;
+  --border-glass: rgba(0, 0, 0, 0.1);
 
-  /* Glassmorphism Defaults - Enhanced Blur & Contrast */
-  --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.5);
-  --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.1);
-  --glass-blur: 16px;
+  /* UI Defaults - Minimal Glassmorphism for Light Theme */
+  --glass-bg: #ffffff;
+  --glass-border: #e2e8f0;
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --glass-blur: 0px;
+  /* Disable blur to avoid dark-theme artifacts */
 
   /* Spacing & Borders */
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 32px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.2s ease-in-out;
 }
 
+/* Force light theme regardless of system preference for now as per user request */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-main: #020617;
-    --bg-card: rgba(15, 23, 42, 0.9);
-    --bg-sidebar: #020617;
-
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-
-    --border-light: rgba(30, 41, 59, 1);
-    --border-glass: rgba(255, 255, 255, 0.1);
-
-    --glass-bg: rgba(15, 23, 42, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    --bg-main: #ffffff;
+    --bg-card: #ffffff;
+    --bg-sidebar: #f8fafc;
+    --text-primary: #000000;
+    --text-secondary: #1e293b;
+    --border-light: #e2e8f0;
+    --glass-bg: #ffffff;
   }
 }
 
@@ -99,46 +93,48 @@ button {
   font-family: inherit;
   cursor: pointer;
   border: none;
-  background: none;
+  font-family: inherit;
   transition: var(--transition-smooth);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 input,
 select,
 textarea {
-  font-family: inherit;
-  outline: none;
-  border: 2px solid var(--border-light);
-  background: var(--bg-card);
-  color: var(--text-primary);
+  padding: 12px 16px;
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  border: 1px solid var(--border-light);
+  background: #ffffff;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 15px;
   transition: var(--transition-smooth);
+  width: 100%;
 }
 
-input:focus {
+input:focus,
+select:focus {
+  outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--primary-glow);
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 /* Glass Utility */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
   border-radius: var(--radius-lg);
-  outline: 1px solid rgba(255, 255, 255, 0.05);
-  /* Subtle inner glow/border */
 }
 
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
   border-radius: var(--radius-lg);
   padding: 24px;
 }

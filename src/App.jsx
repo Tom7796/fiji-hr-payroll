@@ -32,7 +32,7 @@ function App() {
           <div className="animate-fade-in">{renderPage()}</div>
         ) : (
           <ProtectedRoute>
-            <div className="app-container" style={{ display: 'flex', minHeight: '100vh' }}>
+            <div className="app-container" style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-main)' }}>
               <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
               <main className="main-content" style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
                 <div className="animate-fade-in">

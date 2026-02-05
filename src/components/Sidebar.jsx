@@ -16,16 +16,17 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
         <aside className="sidebar" style={{
             width: '280px',
             background: 'var(--bg-sidebar)',
-            color: 'var(--text-on-dark)',
+            color: 'var(--text-primary)',
             display: 'flex',
             flexDirection: 'column',
             padding: '30px 20px',
             height: '100vh',
             position: 'sticky',
-            top: 0
+            top: 0,
+            borderRight: '1px solid var(--border-light)'
         }}>
             <div className="logo" style={{ marginBottom: '40px', padding: '0 10px' }}>
-                <h2 style={{ fontSize: '24px', background: 'linear-gradient(to right, #fff, var(--primary))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                <h2 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--primary)' }}>
                     Fiji HR Portal
                 </h2>
             </div>
@@ -45,19 +46,20 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
                                 padding: '12px 16px',
                                 marginBottom: '8px',
                                 borderRadius: 'var(--radius-md)',
-                                color: isActive ? '#fff' : 'var(--text-muted)',
-                                background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-                                textAlign: 'left'
+                                color: isActive ? 'var(--primary)' : 'var(--text-muted)',
+                                background: isActive ? 'var(--primary-glow)' : 'transparent',
+                                textAlign: 'left',
+                                fontWeight: isActive ? '600' : '500'
                             }}
                         >
                             <Icon size={20} style={{ marginRight: '12px' }} />
-                            <span style={{ fontWeight: isActive ? '600' : '400' }}>{item.label}</span>
+                            <span>{item.label}</span>
                         </button>
                     );
                 })}
             </nav>
 
-            <div className="sidebar-footer" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
+            <div className="sidebar-footer" style={{ borderTop: '1px solid var(--border-light)', paddingTop: '20px' }}>
                 <button
                     onClick={signOut}
                     style={{
@@ -66,7 +68,8 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
                         width: '100%',
                         padding: '12px 16px',
                         color: 'var(--accent)',
-                        borderRadius: 'var(--radius-md)'
+                        borderRadius: 'var(--radius-md)',
+                        fontWeight: '600'
                     }}
                 >
                     <LogOut size={20} style={{ marginRight: '12px' }} />

@@ -24,11 +24,11 @@ const LandingPage = ({ onGetStarted }) => {
     ];
 
     return (
-        <div className="landing-page" style={{ background: 'var(--bg-main)', minHeight: '100vh' }}>
+        <div className="landing-page" style={{ background: 'var(--bg-main)', minHeight: '100vh', color: 'var(--text-primary)' }}>
             {/* Navbar */}
             <nav style={{
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '24px 8%', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(10px)',
+                padding: '24px 8%', background: '#ffffff',
                 position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--border-light)'
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -47,7 +47,7 @@ const LandingPage = ({ onGetStarted }) => {
 
             {/* Hero Section */}
             <section style={{ padding: '100px 8%', textAlign: 'center', maxWidth: '1000px', margin: '0 auto' }}>
-                <h1 style={{ fontSize: ' clamp(40px, 8vw, 72px)', marginBottom: '24px', lineHeight: 1.1 }}>
+                <h1 style={{ fontSize: ' clamp(40px, 8vw, 72px)', marginBottom: '24px', lineHeight: 1.1, color: '#000' }}>
                     The Smartest Way to Manage <span style={{ color: 'var(--primary)' }}>Payroll in Fiji</span>
                 </h1>
                 <p style={{ fontSize: '20px', color: 'var(--text-secondary)', marginBottom: '40px', maxWidth: '700px', margin: '0 auto 40px' }}>
@@ -68,7 +68,7 @@ const LandingPage = ({ onGetStarted }) => {
             </section>
 
             {/* Features Grid */}
-            <section style={{ padding: '80px 8%', background: 'rgba(0,0,0,0.02)' }}>
+            <section style={{ padding: '80px 8%', background: '#f8fafc' }}>
                 <div style={{
                     display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                     gap: '32px', maxWidth: '1200px', margin: '0 auto'
