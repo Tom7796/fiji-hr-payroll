@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '../lib/supabaseClient';
 
 const AppContext = createContext();
 
@@ -16,6 +17,9 @@ export const AppProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [companyProfile, setCompanyProfile] = useState(null);
+  const [customDeductions, setCustomDeductions] = useState([]);
+
   useEffect(() => {
     localStorage.setItem('employees', JSON.stringify(employees));
   }, [employees]);
@@ -23,6 +27,29 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('payslips', JSON.stringify(payslips));
   }, [payslips]);
+
+  useEffect(() => {
+    fetchCompanyProfile();
+    fetchCustomDeductions();
+  }, []);
+
+  const fetchCompanyProfile = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { data, error } = await supabase
+      .from('company_profiles')
+      .select('*')
+      .eq('user_id', user.id)
+      .single();
+    if (data) setCompanyProfile(data);
+  };
+
+  const fetchCustomDeductions = async () => {
+    const { data, error } = await supabase
+      .from('custom_deductions')
+      .select('*');
+    if (data) setCustomDeductions(data);
+  };
 
   const addEmployee = (employee) => {
     setEmployees([...employees, { ...employee, id: Date.now().toString() }]);
@@ -41,13 +68,19 @@ export const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ 
-      employees, 
-      addEmployee, 
-      updateEmployee, 
+    <AppContext.Provider value={{
+      employees,
+      addEmployee,
+      updateEmployee,
       deleteEmployee,
       payslips,
-      addPayslip
+      addPayslip,
+      companyProfile,
+      setCompanyProfile,
+      fetchCompanyProfile,
+      customDeductions,
+      setCustomDeductions,
+      fetchCustomDeductions
     }}>
       {children}
     </AppContext.Provider>

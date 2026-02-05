@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Users, CreditCard, FileText, Calculator, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, CreditCard, FileText, Calculator, Settings as SettingsIcon, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ currentPage, setCurrentPage }) => {
@@ -10,6 +10,7 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
         { id: 'deductions', label: 'Admin Deductions', icon: Calculator },
         { id: 'payroll', label: 'Run Payroll', icon: CreditCard },
         { id: 'payslips', label: 'Payslips', icon: FileText },
+        { id: 'settings', label: 'Settings', icon: SettingsIcon },
     ];
 
     return (

@@ -1,17 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { Plus, Search, MoreVertical, Edit2, Trash2, Mail, Briefcase } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
+import { Plus, Search, MoreVertical, Edit2, Trash2, Mail, Briefcase, Calculator, X, Save } from 'lucide-react';
 
 const Employees = () => {
-    const { employees, addEmployee, updateEmployee, deleteEmployee } = useAppContext();
+    const { employees, addEmployee, updateEmployee, deleteEmployee, customDeductions, fetchCustomDeductions } = useAppContext();
     const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [showDeductionsModal, setShowDeductionsModal] = useState(false);
     const [editingEmployee, setEditingEmployee] = useState(null);
+    const [managingDeductions, setManagingDeductions] = useState(null);
+    const [tempDeductions, setTempDeductions] = useState([]);
+    const [isSaving, setIsSaving] = useState(false);
 
     const filteredEmployees = employees.filter(emp =>
         emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         emp.role.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleOpenDeductions = (emp) => {
+        setManagingDeductions(emp);
+        const existing = customDeductions.filter(d => d.employee_id === emp.id);
+        setTempDeductions(existing.length > 0 ? existing : [{ label: '', amount: 0 }]);
+        setShowDeductionsModal(true);
+    };
+
+    const addDeductionRow = () => {
+        setTempDeductions([...tempDeductions, { label: '', amount: 0 }]);
+    };
+
+    const removeDeductionRow = (index) => {
+        setTempDeductions(tempDeductions.filter((_, i) => i !== index));
+    };
+
+    const saveDeductions = async () => {
+        setIsSaving(true);
+        try {
+            // Delete existing deductions for this employee
+            await supabase
+                .from('custom_deductions')
+                .delete()
+                .eq('employee_id', managingDeductions.id);
+
+            // Insert new deductions
+            const toInsert = tempDeductions
+                .filter(d => d.label && d.amount > 0)
+                .map(d => ({
+                    employee_id: managingDeductions.id,
+                    label: d.label,
+                    amount: Number(d.amount)
+                }));
+
+            if (toInsert.length > 0) {
+                const { error } = await supabase.from('custom_deductions').insert(toInsert);
+                if (error) throw error;
+            }
+
+            await fetchCustomDeductions();
+            setShowDeductionsModal(false);
+        } catch (err) {
+            console.error(err);
+            alert('Failed to save deductions');
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     const handleSave = (e) => {
         e.preventDefault();
@@ -106,6 +159,9 @@ const Employees = () => {
                                 </td>
                                 <td style={{ padding: '16px 20px', textAlign: 'right' }}>
                                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                                        <button onClick={() => handleOpenDeductions(emp)} style={{ color: 'var(--primary)', title: 'Manage Deductions' }}>
+                                            <Calculator size={18} />
+                                        </button>
                                         <button onClick={() => { setEditingEmployee(emp); setShowModal(true); }} style={{ color: 'var(--text-secondary)' }}>
                                             <Edit2 size={18} />
                                         </button>

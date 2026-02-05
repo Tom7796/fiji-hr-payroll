@@ -9,6 +9,7 @@ import Employees from './pages/Employees';
 import AdminDeductions from './pages/AdminDeductions';
 import Payroll from './pages/Payroll';
 import Payslips from './pages/Payslips';
+import Settings from './pages/Settings';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -21,6 +22,7 @@ function App() {
       case 'deductions': return <AdminDeductions />;
       case 'payroll': return <Payroll />;
       case 'payslips': return <Payslips />;
+      case 'settings': return <Settings />;
       default: return <LandingPage onGetStarted={() => setCurrentPage('dashboard')} />;
     }
   };
