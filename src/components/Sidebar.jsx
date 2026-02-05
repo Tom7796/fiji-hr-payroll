@@ -3,15 +3,24 @@ import { LayoutDashboard, Users, CreditCard, FileText, Calculator, Settings as S
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ currentPage, setCurrentPage }) => {
-    const { signOut } = useAuth();
-    const menuItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    const { signOut, role } = useAuth();
+
+    const adminItems = [
+        { id: 'dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
         { id: 'employees', label: 'Employees', icon: Users },
         { id: 'deductions', label: 'Admin Deductions', icon: Calculator },
         { id: 'payroll', label: 'Run Payroll', icon: CreditCard },
-        { id: 'payslips', label: 'Payslips', icon: FileText },
+        { id: 'payslips', label: 'All Payslips', icon: FileText },
         { id: 'settings', label: 'Settings', icon: SettingsIcon },
     ];
+
+    const employeeItems = [
+        { id: 'employee-portal', label: 'My Portal', icon: LayoutDashboard },
+        { id: 'payslips', label: 'My Payslips', icon: FileText },
+        { id: 'settings', label: 'Settings', icon: SettingsIcon },
+    ];
+
+    const menuItems = role === 'admin' ? adminItems : employeeItems;
 
     return (
         <aside className="sidebar" style={{

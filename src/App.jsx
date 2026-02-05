@@ -10,20 +10,27 @@ import AdminDeductions from './pages/AdminDeductions';
 import Payroll from './pages/Payroll';
 import Payslips from './pages/Payslips';
 import Settings from './pages/Settings';
+import EmployeePortal from './pages/EmployeePortal';
+import { useAuth } from './context/AuthContext';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
+  const { role } = useAuth();
 
   const renderPage = () => {
+    if (currentPage === 'landing') {
+      const targetDashboard = role === 'admin' ? 'dashboard' : 'employee-portal';
+      return <LandingPage onGetStarted={() => setCurrentPage(targetDashboard)} />;
+    }
+
     switch (currentPage) {
-      case 'landing': return <LandingPage onGetStarted={() => setCurrentPage('dashboard')} />;
       case 'dashboard': return <Dashboard />;
       case 'employees': return <Employees />;
       case 'deductions': return <AdminDeductions />;
       case 'payroll': return <Payroll />;
       case 'payslips': return <Payslips />;
       case 'settings': return <Settings />;
-      default: return <LandingPage onGetStarted={() => setCurrentPage('dashboard')} />;
+      case 'employee-portal': return <EmployeePortal />;
+      default: return <Dashboard />;
     }
   };
 
